@@ -71,6 +71,21 @@ module Testing where
 	--	|otherwise = testDIS bd i p (n-1)
 	
 	--bd2 = testDIS bd 1 1 7
+
+	--       1  2
+	--     \ | /
+	-- _____\|/_____3
+	--      /|\
+	--     / | \
+                    4
+	rotateBoard::[[Int]]->[[Int]]
+	
+	horizontalBoard::[[Int]]->[[Int]]
+	horizontalBoard (h:t) = concat t
+
+	isWonBy::[[Int]]->Int->Bool
+	isWonBy bd p
+		length t == 1 && (length [x|x<-(head t), x==p]) == 4 = True
 	
 
 		
