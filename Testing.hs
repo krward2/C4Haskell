@@ -78,16 +78,25 @@ module Testing where
 	--      /|\
 	--     / | \
                     4
-	rotateBoard::[[Int]]->[[Int]]
-	
-	horizontalBoard::[[Int]]->[[Int]]
-	horizontalBoard (h:t) = concat t
+	--isWinningLine::[Int]->Bool
+	--isWinningLine col p 
+	--	|length [tokens|tokens<-col, tokens==p] == 4 = True
+	--	|otherwise = False
 
-	isWonBy::[[Int]]->Int->Bool
-	isWonBy bd p
-		length t == 1 && (length [x|x<-(head t), x==p]) == 4 = True
+	atomizeBoard::[[Int]]->[[Int]]
+	atomizeBoard ((colHead:colTail):t) = [atoms|x<-colTail, ]
 	
+	horizontal::[[Int]]->[[Int]]
+	
+	rightDiagonal::[[Int]]->[[Int]]
 
-		
-	
+	leftDiagonal::[[Int]]->[[Int]]
+
+	--isWonBy::[[Int]]->Int->Bool
+	--isWonBy bd p
+	--	|length [col|col<-bd, isWinningLine col p] == 1 = True
+	--	|length [col|col<-(horizontal bd), isWinningLine col p] == 1 = True
+	--	|length [col|col<-(rightDiagonal bd), isWinningLine col p] == 1 = True
+	--	|length [col|col<-(leftDiagonal bd), isWinningLine col p] == 1 = True	
+	--	|otherwise = False
 	
