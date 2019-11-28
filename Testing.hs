@@ -55,7 +55,6 @@ module Testing where
 		|isSlotOpen bd i = insertCol (bd) (insertToken(getColumn bd i) p) (i) 
 		|otherwise = bd
 
-
 	--a = insertToken [0,0,0,0,1] 2
 	--ab = insertToken a 2
 	--b = insertCol [[0],[0],[0]] [1] 1
@@ -77,26 +76,33 @@ module Testing where
 	-- _____\|/_____3
 	--      /|\
 	--     / | \
-                    4
-	--isWinningLine::[Int]->Bool
-	--isWinningLine col p 
-	--	|length [tokens|tokens<-col, tokens==p] == 4 = True
-	--	|otherwise = False
+        --          4
+	
+	rebuild::[Int]->[[Int]]
+	rebuild (h:t)
+		|length t == 1 = [h]:[t]
+		|otherwise = [h]:rebuild t
 
 	atomizeBoard::[[Int]]->[[Int]]
-	atomizeBoard ((colHead:colTail):t) = [atoms|x<-colTail, ]
+	atomizeBoard bd = rebuild (concat bd)
 	
-	horizontal::[[Int]]->[[Int]]
-	
-	rightDiagonal::[[Int]]->[[Int]]
+	--horizontal::[[Int]]->[[Int]]
+	--horizontal
 
-	leftDiagonal::[[Int]]->[[Int]]
+	--rightDiagonal::[[Int]]->[[Int]]
+
+	--leftDiagonal::[[Int]]->[[Int]]
+	--leftDiagonal bd = rightDiagonal( reverse bd )
+
+	--isWinningLine::[Int]->Bool
+	--isWinningLine line p 
+	--	|length [tokens|tokens<-line, tokens==p] == 4 = True
+	--	|otherwise = False
 
 	--isWonBy::[[Int]]->Int->Bool
 	--isWonBy bd p
 	--	|length [col|col<-bd, isWinningLine col p] == 1 = True
-	--	|length [col|col<-(horizontal bd), isWinningLine col p] == 1 = True
-	--	|length [col|col<-(rightDiagonal bd), isWinningLine col p] == 1 = True
-	--	|length [col|col<-(leftDiagonal bd), isWinningLine col p] == 1 = True	
+	--	|length [row|row<-(horizontal bd), isWinningLine row p] == 1 = True
+	--	|length [diag|diag<-(rightDiagonal bd), isWinningLine diag p] == 1 = True
+	--	|length [diag|diag<-(leftDiagonal bd), isWinningLine diag p] == 1 = True	
 	--	|otherwise = False
-	
