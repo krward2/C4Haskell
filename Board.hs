@@ -30,3 +30,31 @@ module Board where
 		|isSlotOpen bd i = insertCol (bd) (insertToken(getColumn bd i) p) (i) 
 		|otherwise = bd
 		
+	--Rotates the board 90 degrees
+	horizontalBd::[[Int]]->[[Int]]
+	horizontalBd [] = []
+	horizontalBd ([]:_) = []
+	horizontalBd bd = map last bd : (horizontalBd (map init bd))
+
+
+	--Doesnt account for order! :(
+	--Broken
+	isWinningLine::[Int]->Int->Bool
+	isWinningLine line p = ( length (filter (==p) line) ) == 4
+
+	--leftDiag bd =  rightDiag (reverse bd)
+	
+	--Need to add r/l diagonal win check
+	--Broken
+	isWonBy::[[Int]]->Int->Bool
+	isWonBy bd p = (length ([col|col<-bd, isWinningLine col p]) == 1) || 
+			(length ([row|row<-(horizontalBd bd), isWinningLine row p]) == 1)
+
+	--isWonBy::[[Int]]->Int->Bool
+	--isWonBy bd p = (length (filter (isWinningLine () p) bd) ) == 1
+
+	playerToChar::
+
+	boardToStr::[[Int]]->[[String]]
+
+	
