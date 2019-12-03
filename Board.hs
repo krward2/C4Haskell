@@ -23,7 +23,7 @@ module Board where
 	insertToken (empty:full) p = ([x|x<-full,x==0]) ++ (p:[x|x<-full, x /= 0])
 
 	insertCol::[[Int]]->[Int]->Int->[[Int]]
-	insertCol (bd) col i = (take (i-1) bd) ++ (col:(drop (i+1) bd))
+	insertCol (bd) col i = (take (i-1) bd) ++ (col:(drop i bd))
 
 	dropInSlot::[[Int]]->Int->Int->[[Int]]
 	dropInSlot bd i p
