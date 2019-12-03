@@ -31,10 +31,10 @@ module Board where
 		|otherwise = bd
 		
 	--Rotates the board 90 degrees
-	horizontalBd::[[Int]]->[[Int]]
-	horizontalBd [] = []
-	horizontalBd ([]:_) = []
-	horizontalBd bd = map last bd : (horizontalBd (map init bd))
+	horizontal::[[a]]->[[a]]
+	horizontal [] = []
+	horizontal ([]:_) = []
+	horizontal bd = map last bd : (horizontal (map init bd))
 
 
 	--Doesnt account for order! :(
@@ -48,13 +48,30 @@ module Board where
 	--Broken
 	isWonBy::[[Int]]->Int->Bool
 	isWonBy bd p = (length ([col|col<-bd, isWinningLine col p]) == 1) || 
-			(length ([row|row<-(horizontalBd bd), isWinningLine row p]) == 1)
+			(length ([row|row<-(horizontal bd), isWinningLine row p]) == 1)
 
 	--isWonBy::[[Int]]->Int->Bool
-	--isWonBy bd p = (length (filter (isWinningLine () p) bd) ) == 1
+	--isWonBy bd p = (length (filter (isWinningLine () p) bd) ) == 1]
+	
+	numRows::[[Int]]->Int
+	numRows bd = length ( horizontal bd )
+	
+	getFirstRow::[[Int]]->[Int]
+	getFirstRow bd = map head bd
 
-	playerToChar::
+	cutFirstRow::[[Int]]->[[Int]]
+	cutFirstRow bd = map tail bd
+	
+	playerToChar::Int->Char
+	playerToChar p
+		|p == 1 = 'O'
+		|p == 2 = 'X'
+		|otherwise = '.'
 
-	boardToStr::[[Int]]->[[String]]
-
+	boardToStr::(Int->Char)->[[Int]]->String
+	boardToStr playerToChar bd
+		|numRows bd == 1 = (map playerToChar (getFirstRow bd))++['\n']
+		|otherwise = ((map playerToChar (getFirstRow bd))++['\n']) ++ (boardToStr playerToChar (cutFirstRow bd))
+	
+	
 	
