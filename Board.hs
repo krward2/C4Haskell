@@ -45,7 +45,9 @@ module Board where
 
 	--Checks if there are 4 player pieces in a column
 	isWinningLine::[Int]->Int->Bool
-	isWinningLine line p = ( length (filter (==p) line) ) == 4
+	isWinningLine [] p = False
+	isWinningLine line p = (length [tokens| tokens<-(take 4 line), tokens == p]) == 4 || 
+				isWinningLine (tail line) p
 
 	--leftDiag bd =  rightDiag (reverse bd)
 
